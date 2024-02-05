@@ -1,0 +1,13 @@
+build/
+components/
+managed_components/
+
+sdkconfig
+sdkconfig.old
+sdkconfig.defaults
+
+.project
+.cproject
+.lock
+main/.cproject
+main/.project
