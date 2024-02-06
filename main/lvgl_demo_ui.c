@@ -158,25 +158,4 @@ void example_lvgl_demo_ui(lv_disp_t *disp)
     start_animation(tv1);
 
 
-//    lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR); /* Circular scroll */
-//    lv_label_set_text(label, "Subscribe Now, Hello LVGL.");
-//    /* Size of the screen (if you use rotation 90 or 270, please set disp->driver->ver_res) */
-//    lv_obj_set_width(label, disp->driver->hor_res);
-//    lv_obj_align(label, LV_ALIGN_TOP_MID, 0, 0);
-//
-//    lv_label_set_long_mode(label1, LV_LABEL_LONG_WRAP); /* Circular scroll */
-//    lv_label_set_text(label1, "USEFUL");
-//    /* Size of the screen (if you use rotation 90 or 270, please set disp->driver->ver_res) */
-//    lv_obj_set_width(label1, disp->driver->hor_res);
-//    lv_obj_align(label1, LV_ALIGN_CENTER, 40, 0);
-//
-//    lv_label_set_long_mode(label2, LV_LABEL_LONG_WRAP); /* Circular scroll */
-//    lv_label_set_text(label2, "ELECTRONICS");
-//    /* Size of the screen (if you use rotation 90 or 270, please set disp->driver->ver_res) */
-//    lv_obj_set_width(label2, disp->driver->hor_res);
-//    lv_obj_align(label2, LV_ALIGN_BOTTOM_LEFT, 16, -10);
-
-
-
-
 }
