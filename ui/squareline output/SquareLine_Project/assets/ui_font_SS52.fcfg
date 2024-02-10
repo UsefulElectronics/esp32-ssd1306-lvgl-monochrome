@@ -1,0 +1,16 @@
+{
+  "codename": "SS52",
+  "ttf_path": "\\assets\\Seven Segment.ttf",
+  "bin_path": "\\assets\\ui_font_SS52.bin",
+  "c_path": "\\assets\\ui_font_SS52.c",
+  "cfg_path": "\\assets\\ui_font_SS52.fcfg",
+  "size": 52,
+  "bpp": 1,
+  "letters": 0,
+  "ranges": [
+    "0x20-0x7f"
+  ],
+  "symbols": "",
+  "customparams": "--no-compress --no-prefilter",
+  "uploaded": false
+}
