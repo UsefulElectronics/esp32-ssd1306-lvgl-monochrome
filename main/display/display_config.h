@@ -18,7 +18,22 @@
 
 
 /* INCLUDES ------------------------------------------------------------------*/
+#include "esp_lcd_panel_vendor.h"
+#include "esp_lcd_panel_io.h"
+#include "esp_lcd_panel_ops.h"
+#include "driver/i2c.h"
+#include "esp_err.h"
+#include "esp_log.h"
+#include "lvgl.h"
+#include "esp_lvgl_port.h"
 
+#if CONFIG_EXAMPLE_LCD_CONTROLLER_SH1107
+#include "esp_lcd_sh1107.h"
+#else
+#include "esp_lcd_panel_vendor.h"
+#endif
+
+#include "lvgl_ui.h"
 /* MACROS --------------------------------------------------------------------*/
 #define I2C_HOST  0
 

@@ -16,6 +16,7 @@
 
 /* INCLUDES ------------------------------------------------------------------*/
 #include "main.h"
+#include "display/display_config.h"
 
 /* PRIVATE STRUCTRES ---------------------------------------------------------*/
 
@@ -31,7 +32,7 @@ static const char *TAG = "main";
 
 void app_main(void)
 {
-	void display_init(void);
+	display_init();
 }
 
 

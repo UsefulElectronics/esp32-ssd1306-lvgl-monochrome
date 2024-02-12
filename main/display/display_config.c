@@ -16,22 +16,7 @@
 
 /* INCLUDES ------------------------------------------------------------------*/
 #include "display_config.h"
-#include "esp_lcd_panel_vendor.h"
-#include "esp_lcd_panel_io.h"
-#include "esp_lcd_panel_ops.h"
-#include "driver/i2c.h"
-#include "esp_err.h"
-#include "esp_log.h"
-#include "lvgl.h"
-#include "esp_lvgl_port.h"
 
-#if CONFIG_EXAMPLE_LCD_CONTROLLER_SH1107
-#include "esp_lcd_sh1107.h"
-#else
-#include "esp_lcd_panel_vendor.h"
-#endif
-
-#include "lvgl_ui.h"
 /* PRIVATE STRUCTRES ---------------------------------------------------------*/
 static bool notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx);
 /* VARIABLES -----------------------------------------------------------------*/
@@ -126,6 +111,13 @@ void display_init(void)
 
     ESP_LOGI(TAG, "Display LVGL Scroll Text");
     lvgl_ui_start(disp);
+}
+
+static bool notify_lvgl_flush_ready(esp_lcd_panel_io_handle_t panel_io, esp_lcd_panel_io_event_data_t *edata, void *user_ctx)
+{
+    lv_disp_t * disp = (lv_disp_t *)user_ctx;
+    lvgl_port_flush_ready(disp);
+    return false;
 }
 
 /*************************************** USEFUL ELECTRONICS*****END OF FILE****/
