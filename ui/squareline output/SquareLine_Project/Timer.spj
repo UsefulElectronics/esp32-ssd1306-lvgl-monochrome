@@ -19,7 +19,7 @@
                   {
                     "nid": 972655839,
                     "strtype": "OBJECT/Name",
-                    "strval": "Label2",
+                    "strval": "leftSegment",
                     "InheritedType": 10
                   },
                   {
@@ -330,7 +330,7 @@
               {
                 "nid": 1924450727,
                 "strtype": "OBJECT/Name",
-                "strval": "Panel1",
+                "strval": "leftPanel",
                 "InheritedType": 10
               },
               {
@@ -642,7 +642,7 @@
                   {
                     "nid": 260268850,
                     "strtype": "OBJECT/Name",
-                    "strval": "Label1",
+                    "strval": "rightSegment",
                     "InheritedType": 10
                   },
                   {
@@ -952,7 +952,7 @@
               {
                 "nid": -1501692247,
                 "strtype": "OBJECT/Name",
-                "strval": "Panel2",
+                "strval": "rightPanel",
                 "InheritedType": 10
               },
               {
@@ -1260,7 +1260,7 @@
               {
                 "nid": -118431148,
                 "strtype": "OBJECT/Name",
-                "strval": "Panel3",
+                "strval": "middleSpace",
                 "InheritedType": 10
               },
               {
@@ -1552,7 +1552,8 @@
                 "InheritedType": 11
               }
             ],
-            "saved_objtypeKey": "PANEL"
+            "saved_objtypeKey": "PANEL",
+            "tree_closed": true
           }
         ],
         "isPage": true,
@@ -1561,7 +1562,7 @@
           {
             "nid": -459676446,
             "strtype": "OBJECT/Name",
-            "strval": "Screen1",
+            "strval": "mainScreen",
             "InheritedType": 10
           },
           {
