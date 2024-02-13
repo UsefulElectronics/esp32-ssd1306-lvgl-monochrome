@@ -61,6 +61,8 @@ lv_obj_t * ui_middleSpace;
 static void lvgl_ui_start_animation(lv_obj_t *scr);
 static void lvgl_ui_anim_timer_cb(lv_timer_t *timer);
 /* FUNCTION PROTOTYPES -------------------------------------------------------*/
+
+
 static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
 {
     my_timer_context_t *timer_ctx = (my_timer_context_t *) timer->user_data;
@@ -246,7 +248,19 @@ void lvgl_ui_start(lv_disp_t *disp)
 	lv_obj_set_style_bg_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_border_color(ui_middleSpace, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_border_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+}
 
+void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel)
+{
+	char temp_digit_string[3] = {0};
+
+	sprintf(temp_digit_string, "%02d", left_panel);
+
+	lv_label_set_text(ui_leftSegment, temp_digit_string);
+
+	sprintf(temp_digit_string, "%02d", right_panel);
+
+	lv_label_set_text(ui_rightSegment, "12");
 
 
 }
