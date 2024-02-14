@@ -18,7 +18,7 @@
 #include "lvgl_ui.h"
 
 #include <math.h>
-
+#include <stdio.h>
 LV_FONT_DECLARE(ui_font_SS52);
 /* PRIVATE STRUCTRES ---------------------------------------------------------*/
 typedef struct
@@ -60,14 +60,33 @@ lv_obj_t * ui_middleSpace;
 /* PRIVATE FUNCTIONS DECLARATION ---------------------------------------------*/
 static void lvgl_ui_start_animation(lv_obj_t *scr);
 static void lvgl_ui_anim_timer_cb(lv_timer_t *timer);
+static void lvgl_ui_count_down_timer_cb(lv_timer_t *timer);
+static void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel);
 /* FUNCTION PROTOTYPES -------------------------------------------------------*/
+static void lvgl_ui_count_down_timer_cb(lv_timer_t *timer)
+{
+	static uint8_t firstPart, secondPart;
 
+	my_timer_context_t *timer_ctx = (my_timer_context_t *) timer->user_data;
+
+	--timer_ctx->count_val;
+
+    firstPart  = timer_ctx->count_val / 100;
+    secondPart = timer_ctx->count_val % 100;
+
+    lvgl_ui_counter_update(firstPart, secondPart);
+
+	if(timer_ctx->count_val <= 0)
+	{
+		lv_timer_del(timer);
+	}
+
+}
 
 static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
 {
     my_timer_context_t *timer_ctx = (my_timer_context_t *) timer->user_data;
     int count = timer_ctx->count_val;
-    lv_obj_t *scr = timer_ctx->scr;
 
     // Play arc animation
     if (count < 90)
@@ -114,8 +133,9 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
         //switch screen
         lv_obj_set_tile_id(display, 0, 1, LV_ANIM_ON);
 
-        // Enable button
-//        lv_obj_clear_state(btn, LV_STATE_DISABLED);
+        my_tim_ctx.count_val = 1000;
+
+        lv_timer_create(lvgl_ui_count_down_timer_cb, 1, &my_tim_ctx);
     }
     else
     {
@@ -171,7 +191,7 @@ static void lvgl_ui_start_animation(lv_obj_t *scr)
 void lvgl_ui_start(lv_disp_t *disp)
 {
     lv_obj_t *scr = lv_disp_get_scr_act(disp);
-    lv_obj_t *label = lv_label_create(scr);
+
 
     display = lv_tileview_create(scr);
 	tv1 = lv_tileview_add_tile(display, 0, 0, LV_DIR_HOR);
@@ -252,15 +272,15 @@ void lvgl_ui_start(lv_disp_t *disp)
 
 void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel)
 {
-	char temp_digit_string[3] = {0};
+	char temp_digit_string[10] = {0};
 
-	sprintf(temp_digit_string, "%02d", left_panel);
+	sprintf(temp_digit_string, "%02d", (int)left_panel);
 
 	lv_label_set_text(ui_leftSegment, temp_digit_string);
 
-	sprintf(temp_digit_string, "%02d", right_panel);
+	sprintf(temp_digit_string, "%02d", (int)right_panel);
 
-	lv_label_set_text(ui_rightSegment, "12");
+	lv_label_set_text(ui_rightSegment, temp_digit_string);
 
 
 }
