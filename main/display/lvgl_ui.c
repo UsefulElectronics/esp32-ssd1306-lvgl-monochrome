@@ -63,13 +63,13 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_count_down_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel);
 /* FUNCTION PROTOTYPES -------------------------------------------------------*/
-static void lvgl_ui_count_down_timer_cb(lv_timer_t *timer)
+static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer)
 {
 	static uint8_t firstPart, secondPart;
 
 	my_timer_context_t *timer_ctx = (my_timer_context_t *) timer->user_data;
 
-	--timer_ctx->count_val;
+	++timer_ctx->count_val;
 
     firstPart  = timer_ctx->count_val / 100;
     secondPart = timer_ctx->count_val % 100;
@@ -82,6 +82,11 @@ static void lvgl_ui_count_down_timer_cb(lv_timer_t *timer)
 	}
 
 }
+static void lvgl_ui_count_pause_cb(lv_timer_t *timer)
+{
+
+}
+
 
 static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
 {
@@ -281,8 +286,6 @@ void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel)
 	sprintf(temp_digit_string, "%02d", (int)right_panel);
 
 	lv_label_set_text(ui_rightSegment, temp_digit_string);
-
-
 }
 
 /*************************************** USEFUL ELECTRONICS*****END OF FILE****/
