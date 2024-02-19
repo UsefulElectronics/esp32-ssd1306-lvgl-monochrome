@@ -22,6 +22,7 @@
 /* VARIABLES -----------------------------------------------------------------*/
 SemaphoreHandle_t button_sem 	= NULL;
 interrupt_e interrupt_id		= IDLE_INT;
+
 static const char* TAG = "interrupt";
 /* DEFINITIONS ---------------------------------------------------------------*/
 
@@ -40,9 +41,9 @@ void  gpio_isr_handle(void *arg)
 {
 	static BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
-	uint8_t gpio_idx = (uint8_t) arg;
+//	uint8_t gpio_idx = (uint8_t) arg;
 
-	interrupt_id = EXT_GPIO_INT;
+	interrupt_id = (uint8_t) arg;
 	//Notify callback handling task and pass callbackID
 	xTaskNotifyFromISR( hMain_eventTask,		//Task handler to pass the notification to
 						interrupt_id,				//CallbackID to be passed to the function

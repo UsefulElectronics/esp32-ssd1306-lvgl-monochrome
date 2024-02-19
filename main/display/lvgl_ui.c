@@ -63,7 +63,7 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_pause_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_reset_timer_cb(lv_timer_t *timer);
-static void lvgl_ui_create_timer_cb(lv_timer_t *timer)
+static void lvgl_ui_create_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel);
 /* FUNCTION PROTOTYPES -------------------------------------------------------*/
 static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer)
@@ -89,7 +89,7 @@ static void lvgl_ui_pause_timer_cb(lv_timer_t *timer)
 {
 	lv_timer_pause(timer);
 }
-static void lvgl_ui_pause_timer_cb(lv_timer_t *timer)
+static void lvgl_ui_resume_timer_cb(lv_timer_t *timer)
 {
 	lv_timer_resume(timer);
 }
@@ -252,7 +252,7 @@ void lvgl_ui_start(lv_disp_t *disp)
 	lv_obj_set_width(ui_leftSegment, LV_SIZE_CONTENT);   /// 1
 	lv_obj_set_height(ui_leftSegment, LV_SIZE_CONTENT);    /// 1
 	lv_obj_set_align(ui_leftSegment, LV_ALIGN_CENTER);
-	lv_label_set_text(ui_leftSegment, "10");
+	lv_label_set_text(ui_leftSegment, "00");
 	lv_obj_set_style_text_color(ui_leftSegment, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_text_opa(ui_leftSegment, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_text_font(ui_leftSegment, &ui_font_SS52, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -274,7 +274,7 @@ void lvgl_ui_start(lv_disp_t *disp)
 	lv_obj_set_width(ui_rightSegment, LV_SIZE_CONTENT);   /// 1
 	lv_obj_set_height(ui_rightSegment, LV_SIZE_CONTENT);    /// 1
 	lv_obj_set_align(ui_rightSegment, LV_ALIGN_CENTER);
-	lv_label_set_text(ui_rightSegment, "12");
+	lv_label_set_text(ui_rightSegment, "00");
 	lv_obj_set_style_text_color(ui_rightSegment, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_text_opa(ui_rightSegment, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_text_font(ui_rightSegment, &ui_font_SS52, LV_PART_MAIN | LV_STATE_DEFAULT);

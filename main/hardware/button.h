@@ -22,14 +22,14 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include "gpio/gpio_config.h"
+#include "peripherals/gpio_config.h"
 #include "stdbool.h"
 /* MACROS --------------------------------------------------------------------*/
 #define HARDWARE_BUTTON_COUNT		1
 #define HARDWARE_BUTTON_OFFSET		1
 
-#define ENABLE			1
-#define DISABLE			0
+#define ENABLE						1
+#define DISABLE						0
 /* ENUMORATIONS --------------------------------------------------------------*/
 // Button states
 typedef enum
@@ -65,25 +65,25 @@ void button_add(uint8_t pin, uint8_t pull_type, uint32_t press_time, void* butto
  * 
  * @param 	get_tick	: function pointer that reads and returns the system tick
  * 
- * @param 	gpio_read 	: fucntion pointer that reads and returns the state of the passed gpio pin
+ * @param 	gpio_read 	: function pointer that reads and returns the state of the passed gpio pin
  */
 void button_init(uint32_t* get_tick, uint8_t* gpio_read);
 /**
  * @brief 	Perform button debounce to filter out spurious button state changes.
  *
- * 			This function performs debounce logic on the input button pin to filter out
+ * 			This function performs denounce logic on the input button pin to filter out
  * 			spurious button state changes that can occur due to mechanical button bouncing.
  *
- * @param 	pin The GPIO pin number of the button to debounce.
+ * @param 	pin The GPIO pin number of the button to denounce.
  *
- * @return 	bool Returns ENABLE if the button state is stable (debounced) and considered valid.
+ * @return 	bool Returns ENABLE if the button state is stable (denounced) and considered valid.
  *          Returns DISABLE if the button state is still unstable due to bouncing.
  *
- * @note The debounce logic maintains an internal level variable to track the stability
- *       of the button state. The debounce time is determined by the start_boundry and end_boundry
- *       constants defined within the function. Adjust these constants based on the desired debounce duration.
+ * @note The denounce logic maintains an internal level variable to track the stability
+ *       of the button state. The denounce time is determined by the start_boundry and end_boundry
+ *       constants defined within the function. Adjust these constants based on the desired denounce duration.
  *       The function uses the provided tick_value to track the time elapsed since the button state change.
- *       To debounce multiple buttons, use a separate instance of this function for each button with its pin number.
+ *       To denounce multiple buttons, use a separate instance of this function for each button with its pin number.
  */
 bool button_debounce(uint8_t pin);
 /**
@@ -95,7 +95,7 @@ bool button_debounce(uint8_t pin);
  */
 button_state_t button_state_get(uint8_t pin);
 /**
- * @brief Handle all button related states and callbacks 
+ * @brief Handle all button related states and callback
  * 
  */
 void button_manager(void);

@@ -76,6 +76,9 @@ void display_init(void)
     ESP_ERROR_CHECK(esp_lcd_panel_reset(panel_handle));
     ESP_ERROR_CHECK(esp_lcd_panel_init(panel_handle));
     ESP_ERROR_CHECK(esp_lcd_panel_disp_on_off(panel_handle, true));
+    // Rotate LCD display 180 degrees
+//    ESP_ERROR_CHECK(esp_lcd_panel_swap_xy(panel_handle, false));
+//    ESP_ERROR_CHECK(esp_lcd_panel_mirror(panel_handle, true, false));
 
 #if CONFIG_EXAMPLE_LCD_CONTROLLER_SH1107
     ESP_ERROR_CHECK(esp_lcd_panel_invert_color(panel_handle, true));
@@ -93,10 +96,11 @@ void display_init(void)
         .hres = EXAMPLE_LCD_H_RES,
         .vres = EXAMPLE_LCD_V_RES,
         .monochrome = true,
-        .rotation = {
+        .rotation =
+        {
             .swap_xy = false,
-            .mirror_x = false,
-            .mirror_y = false,
+            .mirror_x = true,
+            .mirror_y = true,
         }
     };
     lv_disp_t * disp = lvgl_port_add_disp(&disp_cfg);

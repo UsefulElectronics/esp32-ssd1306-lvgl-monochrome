@@ -34,7 +34,7 @@ typedef struct
     uint32_t press_time;        // Timestamp when the button was pressed
     bool long_press;         // Flag indicating if the button is being long-pressed
     uint8_t (*input_read)(void);
-	void 	(*callback)(void);
+	void 	(*callback)(button_state_t state);
 } button_t;
 
 // Button handler structure
@@ -123,7 +123,7 @@ bool button_debounce(uint8_t pin)
 	bool ret = DISABLE;
 
 	const uint16_t	start_boundary 		= 500;
-	const uint16_t	end_boundary	 	= 10000;
+	const uint16_t	end_boundary	 	= 20000;
 
 	const uint16_t	middle_value	 	= 4000;
 
@@ -220,7 +220,7 @@ void button_manager(void)
 			{
 				hw_buttons[i].state 		= BUTTON_CLICKED;
 
-				hw_buttons[i].callback();
+				hw_buttons[i].callback(hw_buttons[i].state);
 
 				hw_buttons[i].state 		= BUTTON_IDLE;
 			}
@@ -228,7 +228,7 @@ void button_manager(void)
 			{
 				hw_buttons[i].state 		= BUTTON_LONG_PRESSED;
 
-				hw_buttons[i].callback();
+				hw_buttons[i].callback(hw_buttons[i].state);
 
 				hw_buttons[i].state 		= BUTTON_IDLE;
 

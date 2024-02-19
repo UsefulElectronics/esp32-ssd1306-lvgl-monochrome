@@ -23,19 +23,18 @@
 #include "esp_log.h"
 #include "main.h"
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-#include "freertos/semphr.h"
+
 /* MACROS --------------------------------------------------------------------*/
 
 /* ENUMORATIONS --------------------------------------------------------------*/
 
 /* STRUCTURES & TYPEDEFS -----------------------------------------------------*/
+//This interrupt ID should be passed to the event task to differentiate between events
 typedef enum 
 {
-	IDLE_INT 		= 0,
-	EXT_GPIO_INT,
+	IDLE_INT 		  = 0,
+	RIGHT_BUTTON_INT  = MAIN_RIGHT_BUTTON	,
+	LEFT_BUTTON_INT	  = MAIN_LEFT_BUTTON	,
 }interrupt_e;
 /* VARIABLES -----------------------------------------------------------------*/
 extern interrupt_e interrupt_id;

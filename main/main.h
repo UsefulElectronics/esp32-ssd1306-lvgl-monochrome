@@ -21,20 +21,23 @@
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/queue.h"
+#include "freertos/semphr.h"
 #include "esp_timer.h"
-
-
-
+#include "driver/gpio.h"
 
 
 /* MACROS --------------------------------------------------------------------*/
+#define MAIN_LEFT_BUTTON 		1
+#define MAIN_RIGHT_BUTTON 		3
 
+#define SYS_TICK()				xTaskGetTickCount() * portTICK_PERIOD_MS
 /* ENUMORATIONS --------------------------------------------------------------*/
 
 /* STRUCTURES & TYPEDEFS -----------------------------------------------------*/
 
 /* VARIABLES -----------------------------------------------------------------*/
-
+extern TaskHandle_t hMain_eventTask;
 /* FUNCTIONS DECLARATION -----------------------------------------------------*/
 
 
