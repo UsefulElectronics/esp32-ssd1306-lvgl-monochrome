@@ -304,5 +304,26 @@ void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel)
 
 	lv_label_set_text(ui_rightSegment, temp_digit_string);
 }
+void lvgl_ui_timer_function(lvgl_timer_status_t timer_state)
+{
+	switch (timer_state)
+	{
+		case LVGL_TIMER_STOP:
+
+			break;
+
+		case LVGL_TIMER_CREAT:
+
+			break;
+		case LVGL_TIMER_RESUME:
+
+			break;
+		case LVGL_TIMER_PAUSE:
+
+			break;
+		default:
+			break;
+	}
+}
 
 /*************************************** USEFUL ELECTRONICS*****END OF FILE****/
