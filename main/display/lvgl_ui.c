@@ -61,9 +61,10 @@ lv_obj_t * ui_middleSpace;
 static void lvgl_ui_start_animation(lv_obj_t *scr);
 static void lvgl_ui_anim_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer);
-static void lvgl_ui_pause_timer_cb(lv_timer_t *timer);
-static void lvgl_ui_reset_timer_cb(lv_timer_t *timer);
-static void lvgl_ui_create_timer_cb(lv_timer_t *timer);
+static void lvgl_ui_pause_timer(lv_timer_t *timer);
+static void lvgl_ui_pause_timer_check(lv_timer_t *timer);
+static void lvgl_ui_reset_timer_(lv_timer_t *timer);
+static void lvgl_ui_create_timer();
 static void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel);
 /* FUNCTION PROTOTYPES -------------------------------------------------------*/
 static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer)
@@ -85,21 +86,21 @@ static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer)
 	}
 
 }
-static void lvgl_ui_pause_timer_cb(lv_timer_t *timer)
+static void lvgl_ui_pause_timer(lv_timer_t *timer)
 {
 	lv_timer_pause(timer);
 }
-static void lvgl_ui_resume_timer_cb(lv_timer_t *timer)
+static void lvgl_ui_resume_timer(lv_timer_t *timer)
 {
 	lv_timer_resume(timer);
 }
-static void lvgl_ui_reset_timer_cb(lv_timer_t *timer)
+static void lvgl_ui_reset_timer(lv_timer_t *timer)
 {
 	my_timer_context_t *timer_ctx = (my_timer_context_t *) timer->user_data;
 
 	timer_ctx->count_val = 0;
 }
-static void lvgl_ui_create_timer_cb(lv_timer_t *timer)
+static void lvgl_ui_create_timer()
 {
 	lv_timer_create(lvgl_ui_count_up_timer_cb, 1, &my_tim_ctx);
 }
@@ -313,12 +314,15 @@ void lvgl_ui_timer_function(lvgl_timer_status_t timer_state)
 			break;
 
 		case LVGL_TIMER_CREAT:
-
+			lvgl_ui_create_timer_cb(lv_timer_t *timer);
 			break;
 		case LVGL_TIMER_RESUME:
 
 			break;
 		case LVGL_TIMER_PAUSE:
+
+			break;
+		case LVGL_TIMER_RESET:
 
 			break;
 		default:
