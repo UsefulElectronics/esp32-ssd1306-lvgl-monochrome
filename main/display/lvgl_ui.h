@@ -28,7 +28,8 @@ typedef enum
 	LVGL_TIMER_STOP = 0,
 	LVGL_TIMER_CREAT,
 	LVGL_TIMER_RESUME,
-	LVGL_TIMER_PAUSE
+	LVGL_TIMER_PAUSE,
+	LVGL_RESET_PAUSE
 }lvgl_timer_status_t;
 
 /* STRUCTURES & TYPEDEFS -----------------------------------------------------*/

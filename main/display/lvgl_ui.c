@@ -52,6 +52,7 @@ lv_obj_t * ui_rightPanel;
 lv_obj_t * ui_rightSegment;
 lv_obj_t * ui_middleSpace;
 
+lv_timer_t *lvgl_ui_timer;
 
 /* DEFINITIONS ---------------------------------------------------------------*/
 
@@ -61,10 +62,11 @@ lv_obj_t * ui_middleSpace;
 static void lvgl_ui_start_animation(lv_obj_t *scr);
 static void lvgl_ui_anim_timer_cb(lv_timer_t *timer);
 static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer);
-static void lvgl_ui_pause_timer(lv_timer_t *timer);
-static void lvgl_ui_pause_timer_check(lv_timer_t *timer);
-static void lvgl_ui_reset_timer_(lv_timer_t *timer);
+static void lvgl_ui_pause_timer();
+
+static void lvgl_ui_reset_timer();
 static void lvgl_ui_create_timer();
+static void lvgl_ui_delete_timer();
 static void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel);
 /* FUNCTION PROTOTYPES -------------------------------------------------------*/
 static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer)
@@ -86,23 +88,28 @@ static void lvgl_ui_count_up_timer_cb(lv_timer_t *timer)
 	}
 
 }
-static void lvgl_ui_pause_timer(lv_timer_t *timer)
+static void lvgl_ui_pause_timer()
 {
-	lv_timer_pause(timer);
+	lv_timer_pause(lvgl_ui_timer);
 }
-static void lvgl_ui_resume_timer(lv_timer_t *timer)
+static void lvgl_ui_resume_timer()
 {
-	lv_timer_resume(timer);
+	lv_timer_resume(lvgl_ui_timer);
 }
-static void lvgl_ui_reset_timer(lv_timer_t *timer)
+static void lvgl_ui_reset_timer()
 {
-	my_timer_context_t *timer_ctx = (my_timer_context_t *) timer->user_data;
+	my_timer_context_t *timer_ctx = (my_timer_context_t *) lvgl_ui_timer->user_data;
 
 	timer_ctx->count_val = 0;
 }
 static void lvgl_ui_create_timer()
 {
-	lv_timer_create(lvgl_ui_count_up_timer_cb, 1, &my_tim_ctx);
+	lvgl_ui_timer = lv_timer_create(lvgl_ui_count_up_timer_cb, 1, &my_tim_ctx);
+}
+static void lvgl_ui_delete_timer()
+{
+	lv_timer_del(lvgl_ui_timer);
+	lvgl_ui_timer = NULL;
 }
 
 
@@ -310,24 +317,38 @@ void lvgl_ui_timer_function(lvgl_timer_status_t timer_state)
 	switch (timer_state)
 	{
 		case LVGL_TIMER_STOP:
-
+			lvgl_ui_delete_timer();
 			break;
-
 		case LVGL_TIMER_CREAT:
-			lvgl_ui_create_timer_cb(lv_timer_t *timer);
+			lvgl_ui_create_timer();
 			break;
 		case LVGL_TIMER_RESUME:
-
+			lvgl_ui_resume_timer();
 			break;
 		case LVGL_TIMER_PAUSE:
-
+			lvgl_ui_pause_timer();
 			break;
-		case LVGL_TIMER_RESET:
-
+		case LVGL_RESET_PAUSE:
+			lvgl_ui_reset_timer();
 			break;
 		default:
 			break;
 	}
+}
+
+bool lvgl_ui_pause_timer_check()
+{
+
+}
+bool lvgl_ui_running_timer_check(void)
+{
+	bool retval = false;
+
+	if(lvgl_ui_timer != NULL)
+	{
+		retval = true;
+	}
+	return retval;
 }
 
 /*************************************** USEFUL ELECTRONICS*****END OF FILE****/
