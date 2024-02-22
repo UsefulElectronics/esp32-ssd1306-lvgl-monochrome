@@ -19,6 +19,7 @@
 
 #include <math.h>
 #include <stdio.h>
+LV_IMG_DECLARE(ui_img_ue_logo_png)
 LV_FONT_DECLARE(ui_font_SS52);
 /* PRIVATE STRUCTRES ---------------------------------------------------------*/
 typedef struct
@@ -42,7 +43,9 @@ lv_obj_t *tv2;
 
 lv_obj_t *label1;
 lv_obj_t *label2;
+lv_obj_t *img_logo;
 lv_obj_t *arc[3];
+
 
 
 lv_obj_t * ui_mainScreen;
@@ -151,7 +154,7 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
     if ((count >= 100) && (count <= 180))
     {
         lv_coord_t offset = (sinf((count - 140) * 2.25f / 90.0f) + 1) * 20.0f;
-        lv_obj_align(label1, LV_ALIGN_CENTER, 0, -offset);
+        lv_obj_align(img_logo, LV_ALIGN_CENTER, 0, -offset);
         lv_obj_align(label2, LV_ALIGN_CENTER, 0,  offset);
 //        lv_obj_set_style_img_opa(img_text, offset / 40.0f * 255, 0);
     }
@@ -228,10 +231,13 @@ void lvgl_ui_start(lv_disp_t *disp)
 	tv2 = lv_tileview_add_tile(display, 0, 1, LV_DIR_HOR);
 
 
-    label1 = lv_label_create(tv1);
-    label2 = lv_label_create(tv1);
+    img_logo = lv_img_create(tv1);
 
-    lv_label_set_text(label1, "USEFUL");
+    lv_img_set_src(img_logo, &ui_img_ue_logo_png);
+
+    img_logo = lv_label_create(tv1);
+
+//    lv_label_set_text(label1, "USEFUL");
 //    lv_label_set_text(label2, "ELECTRONICS");
 
     lvgl_ui_start_animation(tv1);
@@ -287,17 +293,17 @@ void lvgl_ui_start(lv_disp_t *disp)
 	lv_obj_set_style_text_opa(ui_rightSegment, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_text_font(ui_rightSegment, &ui_font_SS52, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-	ui_middleSpace = lv_obj_create(ui_mainScreen);
-	lv_obj_set_width(ui_middleSpace, 128);
-	lv_obj_set_height(ui_middleSpace, 5);
-	lv_obj_set_x(ui_middleSpace, 0);
-	lv_obj_set_y(ui_middleSpace, -32);
-	lv_obj_set_align(ui_middleSpace, LV_ALIGN_CENTER);
-	lv_obj_clear_flag(ui_middleSpace, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-	lv_obj_set_style_bg_color(ui_middleSpace, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-	lv_obj_set_style_bg_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-	lv_obj_set_style_border_color(ui_middleSpace, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-	lv_obj_set_style_border_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+//	ui_middleSpace = lv_obj_create(ui_mainScreen);
+//	lv_obj_set_width(ui_middleSpace, 128);
+//	lv_obj_set_height(ui_middleSpace, 5);
+//	lv_obj_set_x(ui_middleSpace, 0);
+//	lv_obj_set_y(ui_middleSpace, -32);
+//	lv_obj_set_align(ui_middleSpace, LV_ALIGN_CENTER);
+//	lv_obj_clear_flag(ui_middleSpace, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+//	lv_obj_set_style_bg_color(ui_middleSpace, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+//	lv_obj_set_style_bg_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+//	lv_obj_set_style_border_color(ui_middleSpace, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+//	lv_obj_set_style_border_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel)
@@ -328,7 +334,7 @@ void lvgl_ui_timer_function(lvgl_timer_status_t timer_state)
 		case LVGL_TIMER_PAUSE:
 			lvgl_ui_pause_timer();
 			break;
-		case LVGL_RESET_PAUSE:
+		case LVGL_TIMER_RESET:
 			lvgl_ui_reset_timer();
 			break;
 		default:
@@ -338,7 +344,7 @@ void lvgl_ui_timer_function(lvgl_timer_status_t timer_state)
 
 bool lvgl_ui_pause_timer_check()
 {
-
+	return lvgl_ui_timer->paused;
 }
 bool lvgl_ui_running_timer_check(void)
 {

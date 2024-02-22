@@ -73,7 +73,7 @@ void main_system_task(void* param)
 	while(1)
 	{
 
-		 button_manager();
+		button_manager();
 
         vTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(10) );
 
@@ -94,11 +94,36 @@ static void event_handle_task(void* param)
 
 static void main_right_button_callback(button_state_t button_callback_type)
 {
+	lvgl_timer_status_t timer_action = LVGL_TIMER_CREAT;
+
+	if(lvgl_ui_running_timer_check())
+	{
+		timer_action = LVGL_TIMER_RESET;
+
+		lvgl_ui_timer_function(timer_action);
+	}
+	else
+	{
+		lvgl_ui_timer_function(timer_action);
+	}
 	ESP_LOGI(TAG, "right button callback: %d", button_callback_type);
 }
 
 static void main_left_button_callback(button_state_t button_callback_type)
 {
+	lvgl_timer_status_t timer_action = LVGL_TIMER_RESUME;
+
+	if(lvgl_ui_pause_timer_check())
+	{
+		lvgl_ui_timer_function(timer_action);
+	}
+	else
+	{
+		timer_action = LVGL_TIMER_PAUSE;
+
+		lvgl_ui_timer_function(timer_action);
+	}
+
 	ESP_LOGI(TAG, "left button callback: %d", button_callback_type);
 }
 
