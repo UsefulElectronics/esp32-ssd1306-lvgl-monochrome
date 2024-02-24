@@ -20,6 +20,7 @@
 #include <math.h>
 #include <stdio.h>
 LV_IMG_DECLARE(ui_img_ue_logo_png)
+LV_IMG_DECLARE(ui_img_ue_logo_png_large)
 LV_FONT_DECLARE(ui_font_SS52);
 /* PRIVATE STRUCTRES ---------------------------------------------------------*/
 typedef struct
@@ -44,7 +45,7 @@ lv_obj_t *tv2;
 lv_obj_t *label1;
 lv_obj_t *label2;
 lv_obj_t *img_logo;
-lv_obj_t *arc[3];
+lv_obj_t *arc[2];
 
 
 
@@ -107,6 +108,8 @@ static void lvgl_ui_reset_timer()
 }
 static void lvgl_ui_create_timer()
 {
+	memset(&my_tim_ctx, 0, sizeof(my_tim_ctx));
+
 	lvgl_ui_timer = lv_timer_create(lvgl_ui_count_up_timer_cb, 1, &my_tim_ctx);
 }
 static void lvgl_ui_delete_timer()
@@ -143,24 +146,29 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
 
         // Create new image and make it transparent
 
-
-        label2 = lv_label_create(tv1);
-        lv_label_set_text(label2, "ELECTRONICS");
 //        lv_img_set_src(label2, &ui_img_useful_electronics_png);
 //        lv_obj_set_style_img_opa(label2, 0, 0);
     }
 
     // Move images when arc animation finished
-    if ((count >= 100) && (count <= 180))
+    if ((count >= 100) && (count <= 200))
     {
-        lv_coord_t offset = (sinf((count - 140) * 2.25f / 90.0f) + 1) * 20.0f;
-        lv_obj_align(img_logo, LV_ALIGN_CENTER, 0, -offset);
-        lv_obj_align(label2, LV_ALIGN_CENTER, 0,  offset);
-//        lv_obj_set_style_img_opa(img_text, offset / 40.0f * 255, 0);
+    	lv_img_set_angle(img_logo, count - 100);
+//        img_logo = lv_img_create(tv1);
+//        lv_img_set_src(img_logo, &ui_img_ue_logo_png_large);
+    }
+    if ((count >= 200) && (count <= 300))
+    {
+    	uint8_t angle = 300 - count;
+		img_logo = lv_img_create(tv1);
+		lv_img_set_src(img_logo, &ui_img_ue_logo_png_large);
+    	lv_img_set_angle(img_logo, angle);
+//        img_logo = lv_img_create(tv1);
+//        lv_img_set_src(img_logo, &ui_img_ue_logo_png_large);
     }
 
     // Delete timer when all animation finished
-    if ((count += 5) == 220)
+    if ((count += 5) == 320)
     {
         lv_timer_del(timer);
         //switch screen
@@ -180,7 +188,7 @@ static void lvgl_ui_start_animation(lv_obj_t *scr)
 {
 
     // Align image
-    lv_obj_center(label2);
+//    lv_obj_center(label2);
 
     // Create arcs
     for (size_t i = 0; i < sizeof(arc) / sizeof(arc[0]); i++)
@@ -232,18 +240,15 @@ void lvgl_ui_start(lv_disp_t *disp)
 
 
     img_logo = lv_img_create(tv1);
-
     lv_img_set_src(img_logo, &ui_img_ue_logo_png);
 
-    img_logo = lv_label_create(tv1);
+//    img_logo = lv_label_create(tv1);
 
 //    lv_label_set_text(label1, "USEFUL");
+//    label2 = lv_label_create(tv1);
 //    lv_label_set_text(label2, "ELECTRONICS");
 
     lvgl_ui_start_animation(tv1);
-
-
-
 
     lv_obj_clear_flag(tv2, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     ui_mainScreen = lv_obj_create(tv2);
