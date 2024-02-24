@@ -143,28 +143,20 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
         {
             lv_obj_del(arc[i]);
         }
-
-        // Create new image and make it transparent
-
-//        lv_img_set_src(label2, &ui_img_useful_electronics_png);
-//        lv_obj_set_style_img_opa(label2, 0, 0);
     }
 
-    // Move images when arc animation finished
+    // small logo close animation
     if ((count >= 100) && (count <= 200))
     {
     	lv_img_set_angle(img_logo, count - 100);
-//        img_logo = lv_img_create(tv1);
-//        lv_img_set_src(img_logo, &ui_img_ue_logo_png_large);
     }
+    // large logo open animation
     if ((count >= 200) && (count <= 300))
     {
     	uint8_t angle = 300 - count;
 		img_logo = lv_img_create(tv1);
 		lv_img_set_src(img_logo, &ui_img_ue_logo_png_large);
     	lv_img_set_angle(img_logo, angle);
-//        img_logo = lv_img_create(tv1);
-//        lv_img_set_src(img_logo, &ui_img_ue_logo_png_large);
     }
 
     // Delete timer when all animation finished
@@ -175,8 +167,6 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
         lv_obj_set_tile_id(display, 0, 1, LV_ANIM_ON);
 
         my_tim_ctx.count_val = 1000;
-
-//        lv_timer_create(lvgl_ui_count_down_timer_cb, 1, &my_tim_ctx);
     }
     else
     {
@@ -186,21 +176,13 @@ static void lvgl_ui_anim_timer_cb(lv_timer_t *timer)
 
 static void lvgl_ui_start_animation(lv_obj_t *scr)
 {
-
-    // Align image
-//    lv_obj_center(label2);
-
     // Create arcs
     for (size_t i = 0; i < sizeof(arc) / sizeof(arc[0]); i++)
     {
         arc[i] = lv_arc_create(scr);
         // Make arc center
-//        lv_obj_center(arc[i]);
-
         lv_obj_align(arc[i], LV_ALIGN_CENTER, 0, 48);
         // Set arc caption
-//        lv_obj_set_size(arc[i], 110 - 15 * i, 220 - 15 * i);
-
         lv_obj_set_size(arc[i], 100 - 30 * i, 200 - 30 * i);
         lv_arc_set_bg_angles(arc[i], 120 * i, 10 + 120 * i);
         lv_arc_set_value(arc[i], 0);
@@ -213,20 +195,9 @@ static void lvgl_ui_start_animation(lv_obj_t *scr)
 
 
     }
-
-//    if (img_text)
-//    {
-//        lv_obj_del(img_text);
-//        img_text = NULL;
-//    }
-
-    // Create timer for animation
     my_tim_ctx.count_val = -90;
     my_tim_ctx.scr = scr;
     lv_timer_create(lvgl_ui_anim_timer_cb, 50, &my_tim_ctx);
-
-    // Disable button
-//    lv_obj_add_state(btn, LV_STATE_DISABLED);
 }
 
 void lvgl_ui_start(lv_disp_t *disp)
@@ -241,12 +212,6 @@ void lvgl_ui_start(lv_disp_t *disp)
 
     img_logo = lv_img_create(tv1);
     lv_img_set_src(img_logo, &ui_img_ue_logo_png);
-
-//    img_logo = lv_label_create(tv1);
-
-//    lv_label_set_text(label1, "USEFUL");
-//    label2 = lv_label_create(tv1);
-//    lv_label_set_text(label2, "ELECTRONICS");
 
     lvgl_ui_start_animation(tv1);
 
@@ -297,18 +262,6 @@ void lvgl_ui_start(lv_disp_t *disp)
 	lv_obj_set_style_text_color(ui_rightSegment, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_text_opa(ui_rightSegment, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 	lv_obj_set_style_text_font(ui_rightSegment, &ui_font_SS52, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-//	ui_middleSpace = lv_obj_create(ui_mainScreen);
-//	lv_obj_set_width(ui_middleSpace, 128);
-//	lv_obj_set_height(ui_middleSpace, 5);
-//	lv_obj_set_x(ui_middleSpace, 0);
-//	lv_obj_set_y(ui_middleSpace, -32);
-//	lv_obj_set_align(ui_middleSpace, LV_ALIGN_CENTER);
-//	lv_obj_clear_flag(ui_middleSpace, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-//	lv_obj_set_style_bg_color(ui_middleSpace, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-//	lv_obj_set_style_bg_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-//	lv_obj_set_style_border_color(ui_middleSpace, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-//	lv_obj_set_style_border_opa(ui_middleSpace, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 }
 
 void lvgl_ui_counter_update(uint8_t left_panel, uint8_t right_panel)
