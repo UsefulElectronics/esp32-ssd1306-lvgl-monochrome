@@ -20,5 +20,5 @@ As an application, a timer runs on the display that can be controlled by 2 butto
 
 The buttons are interfaced with 2 external interrupt input pins and internal pull resistors are enabled and button debounce algorithm is also integrated in the firmware so no resistors or capacitors are hooked up to the hardware.
 
-![Circuit Diagram](https://github.com/UsefulElectronics/homebridge-devices/blob/main/diagram/mmwave%20sensor%20integration.png)
+![Circuit Diagram](https://github.com/UsefulElectronics/esp32-ssd1306-lvgl-monochrome/blob/main/ui/demo/Demo.png)
 ***
