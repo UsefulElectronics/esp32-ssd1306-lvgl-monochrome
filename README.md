@@ -3,9 +3,9 @@
 # Sponsors
 
 ### PCBWay
-ESP32C2 Development Board PCB is manufactured by PCBWay Website. You can get extra free coupons using the link below:
+ESP32C2 Development Board PCB is manufactured by PCBWay. You can get extra free coupons using the link below:
 
-[<img src="https://github.com/UsefulElectronics/esp32s3-lilygo-thmi-ryuw122/blob/main/pictures/pcbwaybanner.jpg">](https://www.pcbway.com/setinvite.aspx?inviteid=582640)
+[<img src="https://github.com/UsefulElectronics/esp32-ssd1306-lvgl-monochrome/blob/main/ui/demo/250x250.gif">](https://www.pcbway.com/setinvite.aspx?inviteid=582640)
 
 ***
 # ESP32 OLED SSD1306 LVGL Embedded UI Design
